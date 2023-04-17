@@ -60,9 +60,9 @@ frozen_sum <- function(df, indices_frozen) {
   } else {
     values <- df %>%
       ungroup() %>%
-      select(paste0("value_", 0:(ncol(indices_frozen) - 1), "d"))
-
-    sum(values[indices_frozen])
+      select(any_of(paste0("value_", 0:(ncol(indices_frozen) - 1), "d")))
+    
+    sum(values[indices_frozen[, 1:ncol(values)]])
   }
 }
 
@@ -81,7 +81,8 @@ load_frozen_truth <- function(lead_time = 0, start_date = "2021-11-01", load_pre
     df <- read_csv("../hospitalization-nowcast-hub/data-truth/COVID-19/COVID-19_hospitalizations.csv",
       show_col_types = FALSE
     ) %>%
-      filter(date >= start_date)
+      filter(date >= start_date) %>% 
+      rename(value_81d = `value_>80d`)
 
     df <- df %>%
       group_by(location, age_group) %>%

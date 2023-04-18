@@ -109,3 +109,33 @@ write_csv(df_states, "data/wis_states_updated.csv")
 df_age <- filter_data(df, level = "age")
 df_age <- compute_wis(df_age)
 write_csv(df_age, "data/wis_age_updated.csv")
+
+
+### TRUTH: 40 DAYS 
+
+df_truth <- read_csv("data/truth_40d.csv.gz")
+
+df <- load_data(add_baseline = TRUE, add_median = FALSE, shorten_names = TRUE, fix_data = TRUE,
+                add_truth = FALSE, exclude_missing = TRUE)
+df <- df %>% 
+  filter(model != "ILM",
+         model != "MeanEnsemble",
+         model != "MedianEnsemble")
+
+df_updated <- read_csv("data/submissions_updated.csv.gz") %>% 
+  filter(model %in% c("ILM", "MeanEnsemble", "MedianEnsemble"))
+
+df <- bind_rows(df, df_updated) %>%
+  left_join(df_truth, by = c("location", "age_group", "target_end_date" = "date"))
+
+df_national <- filter_data(df, level = "national")
+df_national <- compute_wis(df_national)
+write_csv(df_national, "data/wis_national_40d.csv")
+
+df_states <- filter_data(df, level = "states")
+df_states <- compute_wis(df_states)
+write_csv(df_states, "data/wis_states_40d.csv")
+
+df_age <- filter_data(df, level = "age")
+df_age <- compute_wis(df_age)
+write_csv(df_age, "data/wis_age_40d.csv")

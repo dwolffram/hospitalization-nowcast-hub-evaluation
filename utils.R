@@ -19,6 +19,11 @@ TITLES <- setNames(
   c("national", "states", "age")
 )
 
+METRICS <- setNames(
+  c("absolute error", "squared error", "WIS"),
+  c("median", "mean", "quantile")
+)
+
 
 load_data <- function(add_baseline = TRUE, add_median = FALSE, shorten_names = TRUE, fix_data = TRUE,
                       add_truth = TRUE, exclude_missing = TRUE, eval_date = "2022-08-08", per_100k = FALSE) {
@@ -146,14 +151,9 @@ filter_scores <- function(df, type = "quantile", level = "national",
 }
 
 
-load_scores <- function(aggregate_scores = FALSE, load_baseline = TRUE, 
-                        short_horizons = FALSE, per_100k = FALSE) {
-  if (aggregate_scores) {
-    df <- read_csv(paste0("data/scores_aggregated.csv.gz"), show_col_types = FALSE)
-  } else {
-    df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), ".csv.gz"))
-  }
-  
+load_scores <- function(short_horizons = FALSE, per_100k = FALSE, load_baseline = TRUE) {
+  df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), ".csv.gz"))
+
   if (!load_baseline) {
     df <- df %>%
       filter(model != "KIT-frozen_baseline")

@@ -162,13 +162,17 @@ load_scores <- function(aggregate_scores = FALSE, load_baseline = TRUE,
   return(df)
 }
 
-filter_data <- function(df, model, type = "quantile", level = "national") {
-  df <- df %>%
-    filter(type == !!type)
+filter_data <- function(df, model, type, level = "national", short_horizons = FALSE) {
+  if (!missing(type)) {
+    df <- df %>% filter(type == !!type)
+  }
   
   if (!missing(model)) {
-    df <- df %>%
-      filter(model == !!model)
+    df <- df %>% filter(model == !!model)
+  }
+  
+  if (short_horizons) {
+    df <- df %>% filter(target %in% paste(0:7 * -1, "day ahead inc hosp"))
   }
   
   if (level == "national") {

@@ -152,7 +152,8 @@ filter_scores <- function(df, type = "quantile", level = "national",
 
 
 load_scores <- function(short_horizons = FALSE, per_100k = FALSE, load_baseline = TRUE) {
-  df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), ".csv.gz"))
+  df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), ".csv.gz"),
+                 show_col_types = FALSE)
 
   if (!load_baseline) {
     df <- df %>%

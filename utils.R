@@ -21,7 +21,7 @@ TITLES <- setNames(
 
 
 load_data <- function(add_baseline = TRUE, add_median = FALSE, shorten_names = TRUE, fix_data = TRUE,
-                      add_truth = TRUE, exclude_missing = TRUE, eval_date = "2022-08-08") {
+                      add_truth = TRUE, exclude_missing = TRUE, eval_date = "2022-08-08", per_100k = FALSE) {
   df <- read_csv("data/submissions.csv.gz", show_col_types = FALSE)
 
   # Add baseline
@@ -75,6 +75,17 @@ load_data <- function(add_baseline = TRUE, add_median = FALSE, shorten_names = T
 
     df <- df %>%
       left_join(df_truth, by = c("location", "age_group", "target_end_date" = "date"))
+  }
+  
+  # Standardize per 100k population
+  if (per_100k) {
+    df_population <- read_csv("../hospitalization-nowcast-hub/nowcast_viz_de/plot_data/population_sizes.csv")  %>% 
+      select(-"...1")
+    
+    df <- df %>% 
+      left_join(df_population) %>% 
+      mutate(value = value*100000/population,
+             truth = truth*100000/population)
   }
 
   return(df)

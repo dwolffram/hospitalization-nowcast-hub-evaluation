@@ -37,6 +37,9 @@ df <- load_data(
   add_truth = TRUE, exclude_missing = TRUE, eval_date = "2022-08-08"
 )
 
+
+### OVERALL
+
 df_national <- filter_data(df, level = "national")
 df_national <- compute_wis(df_national)
 write_csv(df_national, paste0("data/wis_national.csv.gz"))
@@ -63,3 +66,6 @@ write_csv(df_states_7d, paste0("data/wis_states_7d.csv.gz"))
 df_age_7d <- filter_data(df, level = "age", short_horizons = TRUE)
 df_age_7d <- compute_wis(df_age_7d)
 write_csv(df_age_7d, paste0("data/wis_age_7d.csv.gz"))
+
+
+### PER 100K POPULATION

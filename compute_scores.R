@@ -3,7 +3,8 @@ source("utils.R")
 compute_scores <- function(df) {
   df <- df %>%
   rowwise() %>%
-  mutate(score = score(value, truth, type, quantile)) %>% 
+  mutate(score = score(value, truth, type, quantile),
+         score = round(score, digits = 5)) %>% 
   select(-c(pathogen, value, truth))
 }
 

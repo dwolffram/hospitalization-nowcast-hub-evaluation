@@ -8,17 +8,10 @@ df <- load_data(
   fix_data = TRUE, add_truth = TRUE, exclude_missing = TRUE, eval_date = "2022-08-08"
 )
 
-df <- df %>%
-  filter(
-    model %in% UPDATED_MODELS,
-    type == "quantile"
-  )
+df <- df %>% filter(model %in% UPDATED_MODELS)
 
 df_updated <- read_csv("data/submissions_updated.csv.gz", show_col_types = FALSE) %>%
-  filter(
-    !model %in% c("MeanEnsemble", "MedianEnsemble"),
-    type == "quantile"
-  ) %>%
+  filter(!model %in% c("MeanEnsemble", "MedianEnsemble")) %>%
   mutate(model = paste(model, "(updated)"))
 
 df_truth <- load_truth(as_of = "2022-08-08")

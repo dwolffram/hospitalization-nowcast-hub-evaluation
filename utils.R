@@ -9,9 +9,30 @@ SHORT_NAMES <- c(
   "RIVM", "RKI", "SU", "SZ"
 )
 
+MODELS <- c(
+  "Epiforecasts", "ILM", "KIT", "LMU", "RIVM", "RKI",
+  "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
+)
+
+ALL_MODELS <- c(
+  "Epiforecasts", "ILM", "KIT", "LMU", "RIVM", "RKI",
+  "SU", "SZ", "KIT-frozen_baseline", "MeanEnsemble", "MedianEnsemble"
+)
+
+ALL_MODELS_UPDATED <- c(
+  "ILM", "ILM (updated)", "KIT", "KIT (updated)", "LMU", "LMU (updated)", "RKI", "RKI (updated)" 
+)
+
+UPDATED_MODELS <- c("ILM", "KIT", "LMU", "RKI")
+
 MODEL_COLORS <- setNames(
   c("#B30000", "#E69F00", "#999999", "#56B4E9", "#F0E442", "#009E73", "#60D1B3", "#80471C", "#3C4AAD", "#CC79A7", "#000000"),
   c("Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT", "LMU", "MeanEnsemble", "MedianEnsemble", "RIVM", "RKI", "SU", "SZ")
+)
+
+UPDATED_COLORS <- setNames(
+  c("#56B4E9", "#3c7da3", "#F0E442", "#a89f2e", "#E69F00", "#a16f00", "#3C4AAD", "#2a3379"),
+  c("KIT", "KIT (updated)", "LMU", "LMU (updated)", "ILM", "ILM (updated)", "RKI", "RKI (updated)")
 )
 
 TITLES <- setNames(
@@ -151,8 +172,10 @@ filter_scores <- function(df, type = "quantile", level = "national",
 }
 
 
-load_scores <- function(short_horizons = FALSE, per_100k = FALSE, load_baseline = TRUE) {
-  df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), ".csv.gz"),
+load_scores <- function(short_horizons = FALSE, per_100k = FALSE, updated_models = FALSE, 
+                        load_baseline = TRUE) {
+  df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), 
+                        ifelse(updated_models, "_updated", ""), ".csv.gz"),
                  show_col_types = FALSE)
 
   if (!load_baseline) {
@@ -165,11 +188,15 @@ load_scores <- function(short_horizons = FALSE, per_100k = FALSE, load_baseline 
       filter(target %in% paste(0:7 * -1, "day ahead inc hosp"))
   }
   
-  df <- df %>%
-    mutate(model = fct_relevel(model, rev(c(
-      "Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT",
-      "LMU", "RIVM", "RKI", "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
-    ))))
+  
+  # Reorder models (ensembles at the end)
+  if (updated_models) {
+    df <- df %>% mutate(model = fct_relevel(model, UPDATED_MODELS))
+  } else {
+    df <- df %>%
+      mutate(model = fct_relevel(model, if (load_baseline) ALL_MODELS else MODELS))
+  }
+
   
   return(df)
 }

@@ -1,10 +1,5 @@
 library(patchwork)
 
-ALL_MODELS <- c(
-  "Epiforecasts", "ILM", "KIT", "LMU", "RIVM", "RKI",
-  "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
-)
-
 ### SCORES (AE, MSE, QS)
 
 plot_scores <- function(type = "quantile", level = "national",
@@ -104,40 +99,69 @@ plot_scores <- function(type = "quantile", level = "national",
 
 ### WIS DECOMPOSITION
 
-plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE, per_100k = FALSE) {
+plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE,
+                     per_100k = FALSE, updated_models = FALSE) {
+
+  # Load the respective file with WIS decomposition
   df <- read_csv(paste0(
     "data/wis_", level, ifelse(short_horizons, "_7d", ""),
     ifelse(per_100k, "_100k", ""), ".csv"
   ), show_col_types = FALSE)
 
-  df <- df %>%
-    mutate(model = fct_relevel(model, c(
-      "Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT",
-      "LMU", "RIVM", "RKI", "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
-    )))
-
+  # Get score of the baseline model to compute relative axis
   base_score <- df %>%
     filter(model == "KIT-frozen_baseline") %>%
     pull(score)
 
-  df <- df %>%
-    filter(model != "KIT-frozen_baseline") %>%
-    mutate(model = fct_drop(model, only = "KIT-frozen_baseline"))
+  # Combine original scores with scores of the updated models
+  # (to show all models even when they did not cover states or age groups)
+  if (updated_models) {
+    df_updated <- read_csv(paste0("data/wis_", level, "_updated.csv"), show_col_types = FALSE) %>%
+      mutate(model = paste(model, "(updated)"))
+
+    df <- df %>%
+      filter(model %in% UPDATED_MODELS) %>%
+      bind_rows(df_updated) %>%
+      mutate(
+        model = fct_expand(model, ALL_MODELS_UPDATED),
+        model = fct_relevel(model, ALL_MODELS_UPDATED)
+      )
+  } else {
+    df <- df %>%
+      filter(model %in% MODELS) %>%
+      mutate(
+        model = fct_expand(model, MODELS),
+        model = fct_relevel(model, MODELS)
+      )
+  }
 
   scores <- df %>%
     select(-score) %>%
     pivot_longer(cols = c(underprediction, spread, overprediction), names_to = "penalty")
 
+  # Load absolute errors from the respective file
   if (add_ae) {
-    df_ae <- load_scores(load_baseline = FALSE, short_horizons = short_horizons, per_100k = per_100k)
-    df_ae <- df_ae %>%
-      mutate(model = fct_relevel(model, c(
-        "Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT",
-        "LMU", "RIVM", "RKI", "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
-      )))
-    df_ae <- filter_scores(df_ae, "median", level, by_horizon = FALSE) %>%
-      filter(model != "KIT-frozen_baseline") %>%
-      mutate(model = fct_drop(model, only = "KIT-frozen_baseline"))
+    df_ae <- load_scores(
+      load_baseline = FALSE, short_horizons = short_horizons,
+      per_100k = per_100k, updated_models = FALSE
+    )
+
+    df_ae <- filter_scores(df_ae, "median", level, by_horizon = FALSE)
+
+    # Combine original scores with scores of the updated models
+    if (updated_models) {
+      df_ae_updated <- load_scores(
+        load_baseline = FALSE, short_horizons = short_horizons,
+        per_100k = per_100k, updated_models = TRUE
+      )
+
+      df_ae_updated <- filter_scores(df_ae_updated, "median", level, by_horizon = FALSE) %>%
+        mutate(model = paste(model, "(updated)"))
+
+      df_ae <- df_ae %>%
+        filter(model %in% c("ILM", "KIT", "LMU", "RKI")) %>%
+        bind_rows(df_ae_updated)
+    }
   }
 
   ggplot() +
@@ -158,8 +182,8 @@ plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE, 
       size = 5 / .pt,
       label.padding = unit(0.1, "lines") # 0.15
     ) +
-    scale_fill_manual(values = MODEL_COLORS, guide = "none") +
-    scale_color_manual(values = MODEL_COLORS, guide = "none") +
+    scale_fill_manual(values = if (updated_models) UPDATED_COLORS else MODEL_COLORS, guide = "none") +
+    scale_color_manual(values = if (updated_models) UPDATED_COLORS else MODEL_COLORS, guide = "none") +
     scale_alpha_manual(
       values = c(0.5, 0.2, 1), labels = c("Overprediction", "Spread", "Underprediction"),
       guide = guide_legend(reverse = TRUE, title.position = "top", title.hjust = 0.5)
@@ -187,14 +211,14 @@ plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE, 
 
 ### COVERAGE ACROSS ALL HORIZONS
 
-plot_coverage <- function(df, level = "national") {
+plot_coverage <- function(df, level = "national", updated_models = FALSE) {
   df <- filter_data(df, type = "quantile", level = level) %>%
     mutate(horizon = as.numeric(str_extract(target, "-?\\d+")))
 
   df <- df %>%
     mutate(
-      model = fct_expand(model, ALL_MODELS),
-      model = fct_relevel(model, ALL_MODELS)
+      model = fct_expand(model, if (updated_models) ALL_MODELS_UPDATED else MODELS),
+      model = fct_relevel(model, if (updated_models) ALL_MODELS_UPDATED else MODELS)
     )
 
   df_wide <- df %>%
@@ -227,7 +251,7 @@ plot_coverage <- function(df, level = "national") {
       color = "Model",
       alpha = "Prediction \ninterval"
     ) +
-    scale_fill_manual(values = MODEL_COLORS) +
+    scale_fill_manual(values = if (updated_models) UPDATED_COLORS else MODEL_COLORS) +
     coord_flip() +
     scale_x_discrete(limits = rev, drop = FALSE) +
     guides(fill = "none") +
@@ -244,10 +268,10 @@ plot_coverage_lines <- function(df, level = "national") {
     mutate(horizon = as.numeric(str_extract(target, "-?\\d+")))
 
   df <- df %>%
-    mutate(model = fct_relevel(model, c(
-      "Epiforecasts", "ILM", "KIT",
-      "LMU", "RIVM", "RKI", "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
-    )))
+    mutate(
+      model = fct_expand(model, MODELS),
+      model = fct_relevel(model, MODELS)
+    )
 
   df_wide <- df %>%
     pivot_wider(names_from = quantile, values_from = value, names_prefix = "quantile_")

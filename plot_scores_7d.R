@@ -13,12 +13,6 @@ df <- load_data(
   fix_data = TRUE, add_truth = TRUE, exclude_missing = TRUE, eval_date = "2022-08-08"
 )
 
-df <- df %>%
-  mutate(model = fct_relevel(model, c(
-    "Epiforecasts", "ILM", "KIT",
-    "LMU", "RIVM", "RKI", "SU", "SZ", "MeanEnsemble", "MedianEnsemble"
-  )))
-
 df <- df %>% filter(target %in% paste(0:7 * -1, "day ahead inc hosp"))
 
 p4 <- plot_coverage(df, "national") + theme(legend.position = "none")
@@ -43,6 +37,6 @@ t <- list(theme(
 ))
 
 ((p1 + p2 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p3 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) /
-    (p4 + p5 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p6 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) & t) + plot_annotation(theme = theme(plot.margin = margin()))
+  (p4 + p5 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p6 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) & t) + plot_annotation(theme = theme(plot.margin = margin()))
 
 ggsave("figures/scores_0-7d.pdf", width = 164, height = 100, unit = "mm", device = "pdf")

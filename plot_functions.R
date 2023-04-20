@@ -100,12 +100,12 @@ plot_scores <- function(type = "quantile", level = "national",
 ### WIS DECOMPOSITION
 
 plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE,
-                     per_100k = FALSE, updated_models = FALSE) {
+                     per_100k = FALSE, updated_models = FALSE, truth_40d = FALSE) {
 
   # Load the respective file with WIS decomposition
   df <- read_csv(paste0(
     "data/wis_", level, ifelse(short_horizons, "_7d", ""),
-    ifelse(per_100k, "_100k", ""), ".csv"
+    ifelse(per_100k, "_100k", ""), ifelse(truth_40d, "_40d", ""), ".csv"
   ), show_col_types = FALSE)
 
   # Get score of the baseline model to compute relative axis
@@ -143,7 +143,7 @@ plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE,
   if (add_ae) {
     df_ae <- load_scores(
       load_baseline = FALSE, short_horizons = short_horizons,
-      per_100k = per_100k, updated_models = FALSE
+      per_100k = per_100k, updated_models = FALSE, truth_40d = truth_40d
     )
 
     df_ae <- filter_scores(df_ae, "median", level, by_horizon = FALSE)

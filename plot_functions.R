@@ -370,3 +370,40 @@ plot_ranks <- function(df, level = "national") {
     xlim(c(0, 1)) +
     theme_bw()
 }
+
+
+### RELATIVE WIS BY NOWCAST DATE
+
+plot_scores_by_date <- function(df, level = "national", relative = TRUE) {
+  df_temp <- df %>%
+    filter(type == "quantile")
+  
+  df_temp <- filter_data(df_temp, level = level) %>%
+    group_by(model, forecast_date) %>%
+    summarize(score = mean(score))
+  
+  if (relative) {
+    base_score <- df_temp %>%
+      filter(model == "KIT-frozen_baseline") %>%
+      rename(base_score = score) %>%
+      ungroup() %>%
+      select(-model)
+    
+    df_temp <- left_join(df_temp, base_score, by = c("forecast_date")) %>%
+      mutate(score = score / base_score)
+  }
+  
+  df_temp <- df_temp %>% filter(model != "KIT-frozen_baseline")
+  
+  ggplot(df_temp, aes(x = forecast_date, y = score, color = model)) +
+    geom_line(size = 0.4) +
+    scale_color_manual(breaks = MODELS, values = MODEL_COLORS) +
+    theme_bw() +
+    labs(
+      x = NULL,
+      y = ifelse(relative, "Relative WIS", "Mean WIS"),
+      color = "Model",
+      title = TITLES[level]
+    ) +
+    scale_x_date(date_breaks = "1 month", date_labels = "%b %Y")
+}

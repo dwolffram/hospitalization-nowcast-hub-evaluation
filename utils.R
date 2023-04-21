@@ -202,6 +202,7 @@ load_scores <- function(short_horizons = FALSE, per_100k = FALSE, updated_models
   return(df)
 }
 
+
 filter_data <- function(df, model, type, level = "national", short_horizons = FALSE) {
   if (!missing(type)) {
     df <- df %>% filter(type == !!type)
@@ -236,6 +237,19 @@ filter_data <- function(df, model, type, level = "national", short_horizons = FA
       )
   }
   return(df)
+}
+
+
+load_nowcast <- function(model, date, location = "DE", age_group = "00+") {
+  read_csv(paste0("../hospitalization-nowcast-hub/data-processed/", model, "/", date, "-", model, ".csv"),
+           show_col_types = FALSE
+  ) %>%
+    filter(
+      location == {{ location }},
+      age_group == {{ age_group }},
+      type == "quantile"
+    ) %>%
+    pivot_wider(names_from = quantile, names_prefix = "quantile_")
 }
 
 

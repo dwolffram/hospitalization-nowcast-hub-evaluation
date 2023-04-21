@@ -10,7 +10,9 @@ Preprint: https://www.medrxiv.org/content/10.1101/2023.04.17.23288668v1
 - Figure 6: [`plot_wis.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_wis.R)
 - Figure 7: [`plot_coverage.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_coverage.R)
 - Figure 8: [`plot_scores_7d.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_scores_7d.R)
-- Figure 9: 
+- Figure 9a: [`plot_saxony.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_saxony.R)
+- Figure 9b: [`plot_bremen.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_bremen.R)
+- Figure 9c, 9d: [`plot_easter.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_easter.R)
 - Figure 10: [`plot_scores_updated.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_scores_updated.R)
 - Figure 11: [`plot_scores_by_eval_date.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_scores_by_eval_date.R)
 - Figure 12: [`plot_scores_40d.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_scores_40d.R)

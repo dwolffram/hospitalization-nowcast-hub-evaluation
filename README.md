@@ -3,7 +3,7 @@
 Preprint: https://www.medrxiv.org/content/10.1101/2023.04.17.23288668v1
 
 # Figures
-- Figure 1: 
+- Figure 1: [`plot_nowcast_example.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_nowcast_example.R)
 - Figure 2: [`plot_fraction.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_fraction.R)
 - Figure 3: [`plot_ensemble_intuition.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_ensemble_intuition.R)
 - Figure 4, 5: [`plot_nowcasts_by_horizon.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_nowcasts_by_horizon.R)

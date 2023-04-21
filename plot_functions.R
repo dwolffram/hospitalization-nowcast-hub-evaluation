@@ -407,3 +407,33 @@ plot_scores_by_date <- function(df, level = "national", relative = TRUE) {
     ) +
     scale_x_date(date_breaks = "1 month", date_labels = "%b %Y")
 }
+
+
+### MEAN WIS BY EVALUATION DATE
+
+plot_scores_by_eval_date <- function(df, level = "national") {
+  title <- TITLES[level]
+  
+  df_temp <- df %>%
+    filter(level == !!level)
+  
+  ggplot(df_temp, aes(x = eval_date, y = score, color = model)) +
+    geom_vline(xintercept = as.Date("2022-08-08"), color = "darkgray", linetype = "solid") +
+    annotate(
+      geom = "label", x = as.Date("2022-08-08"), y = 0.05 * max(df_temp$score),
+      label = "8 August 2022", color = "darkgray", size = 6 / .pt,
+      label.padding = unit(0.1, "lines")
+    ) +
+    geom_line() +
+    scale_x_date(date_breaks = "2 months", minor_breaks = "1 month", date_labels = "%b %Y") +
+    expand_limits(y = 0) +
+    theme_bw() +
+    theme(plot.title = element_text(hjust = 0.5)) +
+    scale_color_manual(breaks = MODELS, values = MODEL_COLORS) +
+    labs(
+      x = "Evaluation date",
+      y = "Mean WIS",
+      color = "Model",
+      title = title
+    )
+}

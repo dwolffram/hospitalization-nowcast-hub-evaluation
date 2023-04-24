@@ -22,3 +22,6 @@ Preprint: https://www.medrxiv.org/content/10.1101/2023.04.17.23288668v1
 - Figure 18: [`plot_ranks.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_ranks.R)
 - Figure 19: [`plot_scores_by_date.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_scores_by_date.R)
 - Figure 20: [`plot_scores_100k.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/plot_scores_100k.R)
+
+# Tables
+- Table 6:  [`pairwise_comparison.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/pairwise_comparison.R)

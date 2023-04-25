@@ -1,5 +1,4 @@
 source("utils.R")
-source("fix_submissions.R")
 
 FIX <- TRUE
 

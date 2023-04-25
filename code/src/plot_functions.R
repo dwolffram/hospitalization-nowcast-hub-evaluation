@@ -1,6 +1,35 @@
 library(patchwork)
 library(ggridges)
 
+Sys.setlocale("LC_ALL", "C")
+
+
+UPDATED_MODELS <- c("ILM", "KIT", "LMU", "RKI")
+
+ALL_MODELS_UPDATED <- c(
+  "ILM", "ILM (updated)", "KIT", "KIT (updated)", "LMU", "LMU (updated)", "RKI", "RKI (updated)" 
+)
+
+MODEL_COLORS <- setNames(
+  c("#B30000", "#E69F00", "#999999", "#56B4E9", "#F0E442", "#009E73", "#60D1B3", "#80471C", "#3C4AAD", "#CC79A7", "#000000"),
+  c("Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT", "LMU", "MeanEnsemble", "MedianEnsemble", "RIVM", "RKI", "SU", "SZ")
+)
+
+UPDATED_COLORS <- setNames(
+  c("#56B4E9", "#3c7da3", "#F0E442", "#a89f2e", "#E69F00", "#a16f00", "#3C4AAD", "#2a3379"),
+  c("KIT", "KIT (updated)", "LMU", "LMU (updated)", "ILM", "ILM (updated)", "RKI", "RKI (updated)")
+)
+
+TITLES <- setNames(
+  c("National level", "States", "Age groups"),
+  c("national", "states", "age")
+)
+
+METRICS <- setNames(
+  c("absolute error", "squared error", "WIS"),
+  c("median", "mean", "quantile")
+)
+
 ### SCORES (AE, MSE, QS)
 
 plot_scores <- function(type = "quantile", level = "national",
@@ -105,7 +134,7 @@ plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE,
 
   # Load the respective file with WIS decomposition
   df <- read_csv(paste0(
-    "data/wis_", level, ifelse(short_horizons, "_7d", ""),
+    "data/scores/wis_", level, ifelse(short_horizons, "_7d", ""),
     ifelse(per_100k, "_100k", ""), ifelse(truth_40d, "_40d", ""), ".csv"
   ), show_col_types = FALSE)
 
@@ -117,7 +146,7 @@ plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE,
   # Combine original scores with scores of the updated models
   # (to show all models even when they did not cover states or age groups)
   if (updated_models) {
-    df_updated <- read_csv(paste0("data/wis_", level, "_updated.csv"), show_col_types = FALSE) %>%
+    df_updated <- read_csv(paste0("data/scores/wis_", level, "_updated.csv"), show_col_types = FALSE) %>%
       mutate(model = paste(model, "(updated)"))
 
     df <- df %>%

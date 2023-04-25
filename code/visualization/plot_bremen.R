@@ -1,4 +1,4 @@
-source("utils.R")
+source("code/src/data_utils.R")
 
 df_ensemble <- load_nowcast("NowcastHub-MeanEnsemble", "2022-01-11", location = "DE-HB")
 

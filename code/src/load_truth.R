@@ -4,12 +4,13 @@ library(runner)
 
 load_reporting_triangle <- function(as_of) {
   # retrieve all commits on the given date
-  commits <- fromJSON(paste0(
-    "https://api.github.com/repos/KITmetricslab/hospitalization-nowcast-hub/commits?path=data-truth/COVID-19/COVID-19_hospitalizations.csv",
-    "&since=", as.Date(as_of) - 1,
-    "&until=", as_of
-  ),
-  simplifyDataFrame = TRUE, flatten = TRUE
+  commits <- fromJSON(
+    paste0(
+      "https://api.github.com/repos/KITmetricslab/hospitalization-nowcast-hub/commits?path=data-truth/COVID-19/COVID-19_hospitalizations.csv",
+      "&since=", as.Date(as_of) - 1,
+      "&until=", as_of
+    ),
+    simplifyDataFrame = TRUE, flatten = TRUE
   )
 
   # get sha of latest commit on the given date
@@ -28,22 +29,34 @@ load_reporting_triangle <- function(as_of) {
 }
 
 
-load_truth <- function(as_of) {
-  df <- load_reporting_triangle(as_of)
+load_truth <- function(as_of, load_precomputed = TRUE) {
+  # check if file already exists
+  filename <- paste0("data/truth_", as_of, ".csv")
 
-  # rowwise sum to aggregate the corrections across all delays
-  df <- df %>%
-    mutate(value = rowSums(across(starts_with("value")), na.rm = TRUE))
+  if (load_precomputed & file.exists(filename)) {
+    print(paste0(
+      "Truth data has already been computed. Loading: ", filename, ".",
+      "If you want to recompute it, set `load_precomputed = FALSE`."
+    ))
+    read_csv(filename, show_col_types = FALSE)
+  } else {
+    df <- load_reporting_triangle(as_of)
 
-  # compute 7-day rolling sum within each stratum
-  df %>%
-    group_by(location, age_group) %>%
-    mutate(truth = sum_run(value, 7, na_pad = TRUE)) %>%
-    select(date, location, age_group, truth) %>%
-    drop_na()
+    # rowwise sum to aggregate the corrections across all delays
+    df <- df %>%
+      mutate(value = rowSums(across(starts_with("value")), na.rm = TRUE))
+
+    # compute 7-day rolling sum within each stratum
+    df %>%
+      group_by(location, age_group) %>%
+      mutate(truth = sum_run(value, 7, na_pad = TRUE)) %>%
+      select(date, location, age_group, truth) %>%
+      drop_na()
+  }
 }
 
-# df_truth <- load_truth("2022-02-27")
+# df_truth <- load_truth("2022-08-08")
+# write_csv(df_truth, "data/truth_2022-08-08.csv")
 
 
 ### Functions to load "frozen" truth values
@@ -61,7 +74,7 @@ frozen_sum <- function(df, indices_frozen) {
     values <- df %>%
       ungroup() %>%
       select(any_of(paste0("value_", 0:(ncol(indices_frozen) - 1), "d")))
-    
+
     sum(values[indices_frozen[, 1:ncol(values)]])
   }
 }
@@ -81,7 +94,7 @@ load_frozen_truth <- function(lead_time = 0, start_date = "2021-11-01", load_pre
     df <- read_csv("../hospitalization-nowcast-hub/data-truth/COVID-19/COVID-19_hospitalizations.csv",
       show_col_types = FALSE
     ) %>%
-      filter(date >= start_date) %>% 
+      filter(date >= start_date) %>%
       rename(value_81d = `value_>80d`)
 
     df <- df %>%

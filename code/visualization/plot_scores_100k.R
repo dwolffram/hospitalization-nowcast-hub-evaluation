@@ -1,5 +1,5 @@
-source("utils.R")
-source("plot_functions.R")
+source("code/src/data_utils.R")
+source("code/src/plot_functions.R")
 
 p1 <- plot_wis("national", per_100k = TRUE)
 p2 <- plot_scores("quantile", "national", by_horizon = TRUE, per_100k = TRUE)

@@ -3,7 +3,7 @@
 library(readr)
 
 # Read in scores:
-scores <- read_csv("data/scores.csv.gz")
+scores <- read_csv("data/scores/scores.csv.gz")
 
 # restrict to quantile scores 
 scores <- subset(scores, type == "quantile")
@@ -101,7 +101,7 @@ result_DE <- data.frame(model = names(geom_mean_ratios_DE),
 result_DE <- merge(result_DE, average_scores_DE[, -2], by = "model")
 
 
-write.csv(results_ratio_DE, file = "data/matrix_DE.csv")
+write.csv(results_ratio_DE, file = "data/pairwise_comparison/matrix_DE.csv")
 write.csv(result_DE, file = "data/pairwise_comparison/pairwise_comparison_DE.csv")
 
 # result_DE <- read.csv("data/pairwise_comparison/pairwise_comparison_DE.csv")
@@ -132,7 +132,7 @@ result_states <- data.frame(model = names(geom_mean_ratios_states),
 result_states <- merge(result_states, average_scores_states[, -2], by = "model")
 
 
-write.csv(results_ratio_states, file = "data/matrix_states.csv")
+write.csv(results_ratio_states, file = "data/pairwise_comparison/matrix_states.csv")
 write.csv(result_states, file = "data/pairwise_comparison/pairwise_comparison_states.csv")
 
 # result_states <- read.csv("data/pairwise_comparison/pairwise_comparison_states.csv")

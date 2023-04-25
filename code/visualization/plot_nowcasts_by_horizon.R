@@ -1,4 +1,4 @@
-source("utils.R")
+source("code/src/data_utils.R")
 
 df <- load_data(
   add_baseline = TRUE, add_median = FALSE, shorten_names = TRUE, fix_data = TRUE,

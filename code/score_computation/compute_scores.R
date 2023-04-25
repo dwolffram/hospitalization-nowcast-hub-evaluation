@@ -1,13 +1,5 @@
-source("utils.R")
-
-compute_scores <- function(df) {
-  df <- df %>%
-  rowwise() %>%
-  mutate(score = score(value, truth, type, quantile),
-         score = round(score, digits = 5)) %>% 
-  select(-c(pathogen, value, truth))
-}
-
+source("code/src/data_utils.R")
+source("code/src/scoring_functions.R")
 
 ### OVERALL
 
@@ -16,7 +8,7 @@ df <- load_data(add_baseline = TRUE, add_median = TRUE, shorten_names = TRUE, fi
 
 df_scores <- compute_scores(df)
 
-write_csv(df_scores, "data/scores.csv.gz")
+write_csv(df_scores, "data/scores/scores.csv.gz")
 
 
 ### PER 100K POPULATION
@@ -26,7 +18,7 @@ df <- load_data(add_baseline = TRUE, add_median = TRUE, shorten_names = TRUE, fi
 
 df_scores <- compute_scores(df)
 
-write_csv(df_scores, "data/scores_100k.csv.gz")
+write_csv(df_scores, "data/scores/scores_100k.csv.gz")
 
 
 ### UPDATED MODELS
@@ -45,7 +37,7 @@ df <- bind_rows(df, df_median) %>%
 
 df <- compute_scores(df)
 
-write_csv(df, "data/scores_updated.csv.gz")
+write_csv(df, "data/scores/scores_updated.csv.gz")
 
 
 ### TRUTH: 40 DAYS 
@@ -78,4 +70,4 @@ df <- bind_rows(df, df_median) %>%
 
 df <- compute_scores(df)
 
-write_csv(df, "data/scores_40d.csv.gz")
+write_csv(df, "data/scores/scores_40d.csv.gz")

@@ -7,9 +7,9 @@ interpolate_quantiles <- function (p = 0.1, p_obs = c(0.025, 0.25), q_obs){
   if(q_obs[1] == q_obs[2]){
     q_obs[1]
   } else {
-    res <- suppressMessages(
+    res <- suppressWarnings(suppressMessages(
       get.norm.par(p = p_obs, q = sort(q_obs), show.output = FALSE, plot = FALSE)
-    )
+    ))
     qnorm(p, mean = res["mean"], sd = res["sd"])
   }
 }

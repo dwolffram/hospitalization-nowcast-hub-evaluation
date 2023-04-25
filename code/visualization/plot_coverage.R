@@ -1,5 +1,5 @@
-source("utils.R")
-source("plot_functions.R")
+source("code/src/data_utils.R")
+source("code/src/plot_functions.R")
 
 df <- load_data(
   add_baseline = FALSE, add_median = FALSE, shorten_names = TRUE,

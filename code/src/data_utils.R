@@ -1,7 +1,6 @@
-source("fix_submissions.R")
-source("load_truth.R")
+source("code/src/fix_submissions.R")
+source("code/src/load_truth.R")
 
-Sys.setlocale("LC_ALL", "C")
 
 SHORT_NAMES <- c(
   "Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT",
@@ -17,32 +16,6 @@ MODELS <- c(
 ALL_MODELS <- c(
   "Epiforecasts", "ILM", "KIT", "LMU", "RIVM", "RKI",
   "SU", "SZ", "KIT-frozen_baseline", "MeanEnsemble", "MedianEnsemble"
-)
-
-ALL_MODELS_UPDATED <- c(
-  "ILM", "ILM (updated)", "KIT", "KIT (updated)", "LMU", "LMU (updated)", "RKI", "RKI (updated)" 
-)
-
-UPDATED_MODELS <- c("ILM", "KIT", "LMU", "RKI")
-
-MODEL_COLORS <- setNames(
-  c("#B30000", "#E69F00", "#999999", "#56B4E9", "#F0E442", "#009E73", "#60D1B3", "#80471C", "#3C4AAD", "#CC79A7", "#000000"),
-  c("Epiforecasts", "ILM", "KIT-frozen_baseline", "KIT", "LMU", "MeanEnsemble", "MedianEnsemble", "RIVM", "RKI", "SU", "SZ")
-)
-
-UPDATED_COLORS <- setNames(
-  c("#56B4E9", "#3c7da3", "#F0E442", "#a89f2e", "#E69F00", "#a16f00", "#3C4AAD", "#2a3379"),
-  c("KIT", "KIT (updated)", "LMU", "LMU (updated)", "ILM", "ILM (updated)", "RKI", "RKI (updated)")
-)
-
-TITLES <- setNames(
-  c("National level", "States", "Age groups"),
-  c("national", "states", "age")
-)
-
-METRICS <- setNames(
-  c("absolute error", "squared error", "WIS"),
-  c("median", "mean", "quantile")
 )
 
 
@@ -174,7 +147,7 @@ filter_scores <- function(df, type = "quantile", level = "national",
 
 load_scores <- function(short_horizons = FALSE, per_100k = FALSE, updated_models = FALSE, 
                         truth_40d = FALSE, load_baseline = TRUE) {
-  df <- read_csv(paste0("data/scores", ifelse(per_100k, "_100k", ""), 
+  df <- read_csv(paste0("data/scores/scores", ifelse(per_100k, "_100k", ""), 
                         ifelse(updated_models, "_updated", ""), ifelse(truth_40d, "_40d", ""), 
                         ".csv.gz"),
                  show_col_types = FALSE)
@@ -250,21 +223,5 @@ load_nowcast <- function(model, date, location = "DE", age_group = "00+") {
       type == "quantile"
     ) %>%
     pivot_wider(names_from = quantile, names_prefix = "quantile_")
-}
-
-
-# Quantile score
-qs <- function(q, y, alpha) {
-  2 * (as.numeric(y < q) - alpha) * (q - y)
-}
-
-score <- function(prediction, observation, type, quantile) {
-  if (type == "mean") {
-    return((prediction - observation)^2)
-  } else if (type == "median") {
-    return(abs(prediction - observation))
-  } else if (type == "quantile") {
-    return(qs(prediction, observation, quantile))
-  }
 }
 

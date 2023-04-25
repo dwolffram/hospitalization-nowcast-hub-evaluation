@@ -1,4 +1,4 @@
-source("utils.R")
+source("code/src/data_utils.R")
 
 df <- load_truth(as_of = "2021-11-22") %>%
   filter(

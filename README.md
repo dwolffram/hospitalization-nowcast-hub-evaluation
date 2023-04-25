@@ -24,7 +24,7 @@ Preprint: https://www.medrxiv.org/content/10.1101/2023.04.17.23288668v1
 - Figure 20: [`plot_scores_100k.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/code/visualization/plot_scores_100k.R)
 
 # Tables
-- Table 6:  [`pairwise_comparison.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/master/code/score_computation/pairwise_comparison.R)
+- Table 6:  [`pairwise_comparison.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation/blob/main/code/score_computation/pairwise_comparison.R)
 
 # Requirements
 We use [`renv`](https://rstudio.github.io/renv/index.html) to manage package versions and dependencies. After cloning the repository, please use 

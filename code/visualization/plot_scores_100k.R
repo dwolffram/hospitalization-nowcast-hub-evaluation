@@ -32,4 +32,4 @@ t <- list(theme(
   (p3 + p4 + labs(title = "States") + p4b) /
   (p5 + p6 + labs(title = "Age groups") + p6b) + plot_annotation(theme = theme(plot.margin = margin())) & t 
 
-ggsave("figures/scores_wis_100k.pdf", width = 164, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/20_scores_wis_100k.pdf", width = 164, height = 200, unit = "mm", device = "pdf")

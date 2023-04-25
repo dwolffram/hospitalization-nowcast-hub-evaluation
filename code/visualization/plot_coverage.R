@@ -35,4 +35,4 @@ wrap_elements(p1 + p4 + labs(title = "National level") + theme(legend.position =
   wrap_elements(p2 + p5 + labs(title = "States") + theme(legend.position = "none") + plot_layout(widths = c(1, 2)) + plot_annotation(theme = theme(plot.margin = margin())) & theme(aspect.ratio = 1) & t) /
   wrap_elements(p3 + p6 + labs(title = "Age groups") + theme(legend.position = "none") + plot_layout(widths = c(1, 2)) + plot_annotation(theme = theme(plot.margin = margin())) & theme(aspect.ratio = 1) & t)
 
-ggsave("figures/coverage.pdf", width = 164, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/07_coverage.pdf", width = 164, height = 200, unit = "mm", device = "pdf")

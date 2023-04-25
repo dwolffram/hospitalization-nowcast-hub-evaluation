@@ -95,4 +95,4 @@ ggplot(df_truth) +
   ) +
   expand_limits(x = as.Date("2022-06-10"), y = 12750)
 
-ggsave("figures/nowcast_example.pdf", width = 164, height = 55, unit = "mm", device = "pdf")
+ggsave("figures/01_nowcast_example.pdf", width = 164, height = 55, unit = "mm", device = "pdf")

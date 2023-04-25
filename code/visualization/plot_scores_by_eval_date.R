@@ -76,11 +76,11 @@ if (!SHORT_HORIZONS) {
   # Across all horizons
   ((p1 + theme(legend.position = "none") + p2 + p3 + theme(legend.position = "none") + p4) + plot_layout(ncol = 2) & t) + plot_annotation(theme = theme(plot.margin = margin()))
 
-  ggsave("figures/scores_by_eval_date.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
+  ggsave("figures/11_scores_by_eval_date.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
 } else {
   # Short horizons: 0-7 days
   (p1 + theme(legend.position = "none") + p2 + theme(legend.position = "none") + p3 & theme(aspect.ratio = 1) & t &
     scale_x_date(date_breaks = "2 months", minor_breaks = "1 month", date_labels = "%b")) + plot_annotation(theme = theme(plot.margin = margin()))
 
-  ggsave("figures/scores_by_eval_date_7d.pdf", width = 164, height = 50, unit = "mm", device = "pdf")
+  ggsave("figures/17_scores_by_eval_date_7d.pdf", width = 164, height = 50, unit = "mm", device = "pdf")
 }

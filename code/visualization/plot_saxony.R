@@ -78,4 +78,4 @@ ggplot() +
     aspect.ratio = 1
   )
 
-ggsave("figures/issues_saxony.pdf", width = 300, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/09a_issues_saxony.pdf", width = 300, height = 200, unit = "mm", device = "pdf")

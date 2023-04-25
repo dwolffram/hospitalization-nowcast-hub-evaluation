@@ -91,4 +91,4 @@ ggplot(df1) +
     legend.background = element_rect(fill = "transparent")
   )
 
-ggsave(paste0("figures/nowcasts_", LEAD_TIME, "d.pdf"), width = 164, height = 100, unit = "mm", device = "pdf")
+ggsave(paste0("figures/", ifelse(LEAD_TIME == 0, "04", "05"), "_nowcasts_", LEAD_TIME, "d.pdf"), width = 164, height = 100, unit = "mm", device = "pdf")

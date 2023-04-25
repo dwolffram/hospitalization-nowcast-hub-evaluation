@@ -26,4 +26,4 @@ t <- list(theme(
   (p3 + theme(legend.position = "none"))) +
   plot_annotation(theme = theme(plot.margin = margin())) & t
 
-ggsave("figures/scores_by_date.pdf", width = 164, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/19_scores_by_date.pdf", width = 164, height = 200, unit = "mm", device = "pdf")

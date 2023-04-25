@@ -113,4 +113,4 @@ ggplot(df3) +
   )
 
 
-ggsave("figures/ensemble_intuition.pdf", width = 164, height = 55, unit = "mm", device = "pdf")
+ggsave("figures/03_ensemble_intuition.pdf", width = 164, height = 55, unit = "mm", device = "pdf")

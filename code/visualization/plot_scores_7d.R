@@ -39,4 +39,4 @@ t <- list(theme(
 ((p1 + p2 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p3 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) /
   (p4 + p5 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p6 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) & t) + plot_annotation(theme = theme(plot.margin = margin()))
 
-ggsave("figures/scores_0-7d.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
+ggsave("figures/08_scores_0-7d.pdf", width = 164, height = 100, unit = "mm", device = "pdf")

@@ -53,7 +53,7 @@ ggplot() +
         axis.text = element_text(size = 16),
         aspect.ratio = 1) 
 
-ggsave("figures/issues_easter.pdf", width = 300, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/09c_issues_easter.pdf", width = 300, height = 200, unit = "mm", device = "pdf")
 
 
 ### EASTER: LOWER SAXONY, ISSUE OF EPIFORECASTS
@@ -123,4 +123,4 @@ ggplot() +
         aspect.ratio = 1) +
   coord_cartesian(ylim = c(0, 2000))
 
-ggsave("figures/issues_easter_epi.pdf", width = 300, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/09d_issues_easter_epi.pdf", width = 300, height = 200, unit = "mm", device = "pdf")

@@ -197,7 +197,7 @@ p1 + facet_grid( ~ "National level") + theme(legend.position = "none",
         legend.box.spacing = unit(0, "pt"),
         legend.background = element_rect(fill='transparent'))
 
-ggsave("figures/fractions.pdf", width = 164, height = 45, unit = "mm", device = "pdf")
+ggsave("figures/02_fractions.pdf", width = 164, height = 45, unit = "mm", device = "pdf")
 
 
 ### Over time by state

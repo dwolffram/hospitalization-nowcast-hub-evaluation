@@ -34,4 +34,4 @@ renv::restore()
 ``` 
 to install all required packages into the project library (which is isolated from other R libraries on your system). 
 
-For further information, please refer to https://rstudio.github.io/renv/articles/renv.html.
+For further information, please refer to https://rstudio.github.io/renv/articles/renv.html, especially to the section [Collaborating with renv](https://rstudio.github.io/renv/articles/collaborating.html).

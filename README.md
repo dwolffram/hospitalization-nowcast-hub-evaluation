@@ -27,7 +27,8 @@ Preprint: https://www.medrxiv.org/content/10.1101/2023.04.17.23288668v1
 - Table 6:  [`pairwise_comparison.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation/blob/main/code/score_computation/pairwise_comparison.R)
 
 # Requirements
-We use [`renv`](https://rstudio.github.io/renv/index.html) to manage package versions and dependencies. After cloning the repository, please use 
+We use [`renv`](https://rstudio.github.io/renv/index.html) to manage package versions and dependencies. After cloning the repository, please open the `.Rproj` file
+using RStudio and run 
 ``` r
 renv::restore()
 ``` 

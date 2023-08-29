@@ -234,7 +234,7 @@ ggplot(df_fraction_states, aes(x = date, y = value, fill = fct_reorder(d, value,
         legend.background = element_rect(fill='transparent'))
 
 
-ggsave("figures/fraction_time_states.pdf", width = 164, height = 150, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A01.pdf", width = 164, height = 150, unit = "mm", device = "pdf")
 
 
 
@@ -271,5 +271,5 @@ ggplot(df_fraction_age, aes(x = date, y = value, fill = fct_reorder(d, value, .d
         legend.box.spacing = unit(0, "pt"),
         legend.background = element_rect(fill='transparent'))
 
-ggsave("figures/fraction_time_age.pdf", width = 164, height = 75, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A02.pdf", width = 164, height = 75, unit = "mm", device = "pdf")
 

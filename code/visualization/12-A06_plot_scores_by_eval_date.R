@@ -82,5 +82,5 @@ if (!SHORT_HORIZONS) {
   (p1 + theme(legend.position = "none") + p2 + theme(legend.position = "none") + p3 & theme(aspect.ratio = 1) & t &
     scale_x_date(date_breaks = "2 months", minor_breaks = "1 month", date_labels = "%b")) + plot_annotation(theme = theme(plot.margin = margin()))
 
-  ggsave("figures/Fig_A6.pdf", width = 164, height = 50, unit = "mm", device = "pdf")
+  ggsave("figures/Fig_A06.pdf", width = 164, height = 50, unit = "mm", device = "pdf")
 }

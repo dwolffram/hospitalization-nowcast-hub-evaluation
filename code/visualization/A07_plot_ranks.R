@@ -26,4 +26,4 @@ t <- list(theme(
   p2 + ylab(NULL) + theme(legend.position = "bottom") + facet_grid(~"States") +
   p3 + ylab(NULL) + theme(legend.position = "None") + facet_grid(~"Age groups")) & t
 
-ggsave("figures/18_ranks.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A7.pdf", width = 164, height = 100, unit = "mm", device = "pdf")

@@ -62,7 +62,7 @@ ggplot(dfs) +
   ) +
   expand_limits(y = c(4000))
 
-ggsave("figures/Fig_A9.pdf", width = 164, height = 70, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A09.pdf", width = 164, height = 70, unit = "mm", device = "pdf")
 
 
 

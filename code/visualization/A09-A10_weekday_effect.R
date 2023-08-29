@@ -62,7 +62,7 @@ ggplot(dfs) +
   ) +
   expand_limits(y = c(4000))
 
-ggsave("figures/A9_weekdays_KIT.pdf", width = 164, height = 70, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A9.pdf", width = 164, height = 70, unit = "mm", device = "pdf")
 
 
 
@@ -110,4 +110,4 @@ ggplot(dfs) +
   ) +
   expand_limits(y = c(4000))
 
-ggsave("figures/A10_weekdays_ILM.pdf", width = 164, height = 70, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A10.pdf", width = 164, height = 70, unit = "mm", device = "pdf")

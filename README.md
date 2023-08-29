@@ -1,6 +1,6 @@
 # Collaborative nowcasting of COVID-19 hospitalization incidences in Germany
 
-Paper: [https://www.medrxiv.org/content/10.1101/2023.04.17.23288668v1](https://doi.org/10.1371/journal.pcbi.1011394)
+Paper: [https://doi.org/10.1371/journal.pcbi.1011394](https://doi.org/10.1371/journal.pcbi.1011394)
 
 # Figures
 - Figure 1: [`01_plot_nowcast_example.R`](https://github.com/dwolffram/hospitalization-nowcast-hub-evaluation-new/blob/main/code/visualization/01_plot_nowcast_example.R)

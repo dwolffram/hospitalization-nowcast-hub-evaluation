@@ -44,7 +44,7 @@ p6b <- plot_scores("median", "age", by_horizon = TRUE, relative = TRUE)
   (p3 + p4 + labs(title = "States") + p4b) /
   (p5 + p6 + labs(title = "Age groups") + p6b) + plot_annotation(theme = theme(plot.margin = margin())) & t
 
-ggsave("figures/15_scores_ae.pdf", width = 164, height = 185, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A04.pdf", width = 164, height = 185, unit = "mm", device = "pdf")
 
 
 ### SQUARED ERROR
@@ -63,4 +63,4 @@ p6b <- plot_scores("mean", "age", by_horizon = TRUE, relative = TRUE)
   (p3 + p4 + labs(title = "States") + p4b) /
   (p5 + p6 + labs(title = "Age groups") + p6b) + plot_annotation(theme = theme(plot.margin = margin())) & t
 
-ggsave("figures/16_scores_mse.pdf", width = 164, height = 185, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A05.pdf", width = 164, height = 185, unit = "mm", device = "pdf")

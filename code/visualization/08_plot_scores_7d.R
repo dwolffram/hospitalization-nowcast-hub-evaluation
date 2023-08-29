@@ -21,12 +21,12 @@ p6 <- plot_coverage(df, "age") + theme(legend.position = "right", legend.justifi
 
 
 t <- list(theme(
-  plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
-  legend.title = element_text(size = 6),
-  legend.text = element_text(size = 5),
+  plot.title = element_text(size = 10, hjust = 0.5, face = "bold"),
+  legend.title = element_text(size = 9),
+  legend.text = element_text(size = 8),
   legend.key.size = unit(0.4, "lines"),
-  axis.title = element_text(size = 7),
-  axis.text = element_text(size = 6),
+  axis.title = element_text(size = 8),
+  axis.text = element_text(size = 7),
   axis.ticks = element_line(colour = "black", size = 0.25),
   panel.grid.major = element_line(size = 0.15),
   panel.grid.minor = element_line(size = 0.1),
@@ -39,4 +39,4 @@ t <- list(theme(
 ((p1 + p2 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p3 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) /
   (p4 + p5 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p6 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) & t) + plot_annotation(theme = theme(plot.margin = margin()))
 
-ggsave("figures/08_scores_0-7d.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
+ggsave("figures/Fig9.pdf", width = 190.5, height = 110, unit = "mm", device = "pdf")

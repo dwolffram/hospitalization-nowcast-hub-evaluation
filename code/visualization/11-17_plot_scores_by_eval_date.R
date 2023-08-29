@@ -1,7 +1,7 @@
 source("code/src/data_utils.R")
 source("code/src/plot_functions.R")
 
-SHORT_HORIZONS <- TRUE
+SHORT_HORIZONS <- FALSE
 
 ### LOAD ALL FILES
 
@@ -60,12 +60,12 @@ if (!SHORT_HORIZONS) {
 ### ASSEMBLE PLOTS
 
 t <- list(theme(
-  plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
-  legend.title = element_text(size = 6),
-  legend.text = element_text(size = 5),
+  plot.title = element_text(size = 9, hjust = 0.5, face = "bold"),
+  legend.title = element_text(size = 9),
+  legend.text = element_text(size = 8),
   legend.key.size = unit(0.4, "lines"),
-  axis.title = element_text(size = 6),
-  axis.text = element_text(size = 5),
+  axis.title = element_text(size = 7),
+  axis.text = element_text(size = 7),
   axis.ticks = element_line(colour = "black", size = 0.25),
   panel.grid.major = element_line(size = 0.15),
   panel.grid.minor = element_line(size = 0.1)
@@ -76,7 +76,7 @@ if (!SHORT_HORIZONS) {
   # Across all horizons
   ((p1 + theme(legend.position = "none") + p2 + p3 + theme(legend.position = "none") + p4) + plot_layout(ncol = 2) & t) + plot_annotation(theme = theme(plot.margin = margin()))
 
-  ggsave("figures/11_scores_by_eval_date.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
+  ggsave("figures/Fig12.pdf", width = 190.5, height = 110, unit = "mm", device = "pdf")
 } else {
   # Short horizons: 0-7 days
   (p1 + theme(legend.position = "none") + p2 + theme(legend.position = "none") + p3 & theme(aspect.ratio = 1) & t &

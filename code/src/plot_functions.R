@@ -34,8 +34,9 @@ METRICS <- setNames(
 
 plot_scores <- function(type = "quantile", level = "national",
                         by_horizon = FALSE, relative = FALSE, add_ae = FALSE,
-                        short_horizons = FALSE, per_100k = FALSE) {
-  df <- load_scores(short_horizons = short_horizons, per_100k = per_100k, load_baseline = TRUE)
+                        short_horizons = FALSE, per_100k = FALSE, truth_40d = FALSE) {
+  df <- load_scores(short_horizons = short_horizons, per_100k = per_100k, 
+                    truth_40d = truth_40d, load_baseline = TRUE)
   scores <- filter_scores(df, type, level, by_horizon)
   metric <- METRICS[type]
   ylabel <- if (relative) paste("Relative", metric) else paste("Mean", metric)
@@ -209,7 +210,7 @@ plot_wis <- function(level = "national", add_ae = TRUE, short_horizons = FALSE,
       data = df, aes(x = model, y = 0.5 * score, label = sprintf("%0.1f", round(score, digits = 1))),
       fill = "white", alpha = 1, hjust = 0.5,
       label.r = unit(0.15, "lines"), # 0.25
-      size = 5 / .pt,
+      size = 6 / .pt,
       label.padding = unit(0.1, "lines") # 0.15
     ) +
     scale_fill_manual(values = if (updated_models) UPDATED_COLORS else MODEL_COLORS, guide = "none") +

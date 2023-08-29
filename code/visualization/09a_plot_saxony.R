@@ -39,9 +39,9 @@ df_ensemble <- load_nowcast("NowcastHub-MeanEnsemble", "2021-11-22", location = 
 
 ALPHAS <- setNames(c(0.7, 0.4), c("50%", "95%"))
 
-ggplot() +
-  geom_line(data = df_all, aes(x = date, y = truth, color = version), size = 1.5) +
-  # geom_vline(xintercept = as.Date("2021-11-22"), color = "black", linetype = "dashed") +
+p1 <- ggplot() +
+  geom_line(data = df_all, aes(x = date, y = truth, color = version), size = 0.25) +
+  geom_vline(xintercept = as.Date("2021-11-22"), color = "black", linetype = "dashed", size = 0.25) +
   geom_ribbon(
     data = df_ensemble,
     aes(
@@ -60,22 +60,22 @@ ggplot() +
   ) +
   geom_line(
     data = df_ensemble, aes(x = target_end_date, y = quantile_0.5),
-    color = "navyblue", size = 1, linetype = "solid"
+    color = "navyblue", size = 0.25, linetype = "solid"
   ) +
   labs(title = "Saxony", x = NULL, y = "7-day hospitalization incidence", color = "Data version") +
   theme_bw() +
-  scale_x_date(date_labels = "%Y-%m-%d", minor_breaks = "1 month") +
+  scale_x_date(date_labels = "%Y-%m-%d", breaks = "1 month") +
   scale_color_manual(breaks = c("initial", "final", "frozen"), values = c("firebrick3", "black", "gray")) +
   scale_alpha_manual(
     name = "Ensemble nowcast with \nprediction intervals:", values = ALPHAS,
     guide = guide_legend(order = 2, title.position = "top", title.hjust = 0)
   ) +
   theme(
-    text = element_text(size = 26),
-    legend.title = element_text(size = 18),
-    legend.text = element_text(size = 18),
-    axis.text = element_text(size = 16),
+    text = element_text(size = 8),
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 8),
+    axis.text = element_text(size = 8),
     aspect.ratio = 1
   )
 
-ggsave("figures/09a_issues_saxony.pdf", width = 300, height = 200, unit = "mm", device = "pdf")
+# ggsave("figures/09a_issues_saxony2.pdf", width = 80, height = 50, unit = "mm", device = "pdf")

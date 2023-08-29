@@ -10,6 +10,10 @@ p2 <- plot_wis("states", truth_40d = TRUE) + theme(legend.position = "none") + l
 p3 <- plot_wis("age", truth_40d = TRUE) + theme(legend.position = "right", legend.justification = "left") + labs(title = "Age groups")
 
 
+# plot_wis("national", truth_40d = TRUE) 
+
+# ggsave("figures/scores40d.pdf", width = 120, height = 100, unit = "mm", device = "pdf")
+
 ## COVERAGE
 
 # Load new truth data (with a maximum delay of 40 days)
@@ -39,16 +43,16 @@ p5 <- plot_coverage(df, "states") + theme(legend.position = "none")
 p6 <- plot_coverage(df, "age") + theme(legend.position = "right", legend.justification = "left")
 
 t <- list(theme(
-  plot.title = element_text(size = 8, hjust = 0.5, face = "bold"),
-  legend.title = element_text(size = 6),
-  legend.text = element_text(size = 5),
+  plot.title = element_text(size = 10, hjust = 0.5, face = "bold"),
+  legend.title = element_text(size = 9),
+  legend.text = element_text(size = 8),
   legend.key.size = unit(0.4, "lines"),
-  axis.title = element_text(size = 7),
-  axis.text = element_text(size = 6),
+  axis.title = element_text(size = 8),
+  axis.text = element_text(size = 7),
   axis.ticks = element_line(colour = "black", size = 0.25),
   panel.grid.major = element_line(size = 0.15),
   panel.grid.minor = element_line(size = 0.1),
-  plot.margin = unit(c(2, 4, 10, 2), "pt"),
+  plot.margin = unit(c(2, 2, 10, 2), "pt"),
   legend.margin = margin(0, 0, 0, 4),
   legend.box.spacing = unit(0, "pt"),
   legend.background = element_rect(fill = "transparent")
@@ -57,4 +61,4 @@ t <- list(theme(
 ((p1 + p2 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p3 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) /
   (p4 + p5 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank()) + p6 + theme(axis.ticks.y = element_blank(), axis.text.y = element_blank())) & t) + plot_annotation(theme = theme(plot.margin = margin()))
 
-ggsave("figures/12_scores_40d.pdf", width = 164, height = 100, unit = "mm", device = "pdf")
+ggsave("figures/Fig13.pdf", width = 190.5, height = 110, unit = "mm", device = "pdf")

@@ -175,7 +175,7 @@ p3 <- ggplot(df_fraction, aes(x = weekday, y = value, fill = d)) +
 
 
 p1 + facet_grid( ~ "National level") + theme(legend.position = "none", 
-                                             axis.text.y = element_text(size = 6)) +
+                                             axis.text.y = element_text(size = 7)) +
   p2 + facet_grid( ~ "States") + ylab(NULL) + theme(legend.position = "none", 
                                                     axis.text.y = element_blank()) +
   p4 + facet_grid( ~ "Age groups") + ylab(NULL) + theme(legend.position = "none", 
@@ -183,12 +183,12 @@ p1 + facet_grid( ~ "National level") + theme(legend.position = "none",
   p3 + facet_grid( ~ "Weekdays") + ylab(NULL) + theme(legend.position = "right", 
                                                       axis.text.y = element_blank()) +
   plot_layout(widths = c(1.8, 1.8, 1.25, 1)) &
-  theme(legend.title = element_text(size = 6), 
-        legend.text  = element_text(size = 6),
+  theme(legend.title = element_text(size = 8), 
+        legend.text  = element_text(size = 8),
         legend.key.size = unit(0.4, "lines"),
-        axis.title.y = element_text(size = 7),
-        axis.text.x = element_text(size = 4),
-        strip.text = element_text(size = 8),
+        axis.title.y = element_text(size = 8),
+        axis.text.x = element_text(size = 5),
+        strip.text = element_text(size = 9),
         axis.ticks = element_line(colour = "black", size = 0.25),
         panel.grid.major = element_line(size = 0.15),
         panel.grid.minor = element_line(size = 0.1),
@@ -197,7 +197,7 @@ p1 + facet_grid( ~ "National level") + theme(legend.position = "none",
         legend.box.spacing = unit(0, "pt"),
         legend.background = element_rect(fill='transparent'))
 
-ggsave("figures/02_fractions.pdf", width = 164, height = 45, unit = "mm", device = "pdf")
+ggsave("figures/Fig3.pdf", width = 190.5, height = 50, unit = "mm", device = "pdf")
 
 
 ### Over time by state

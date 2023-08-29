@@ -1,4 +1,5 @@
 source("code/src/data_utils.R")
+source("code/src/plot_functions.R")
 
 as_of1 <- "2022-04-24"
 as_of2 <- "2022-08-08"
@@ -97,12 +98,12 @@ ggplot(df3) +
   theme(
     legend.position = "right", legend.box.just = "left",
     legend.direction = "vertical", legend.box = "vertical",
-    legend.title = element_text(size = 6),
-    legend.text = element_text(size = 6),
+    legend.title = element_text(size = 8),
+    legend.text = element_text(size = 7),
     legend.key.size = unit(0.4, "lines"),
-    axis.title.y = element_text(size = 8),
-    axis.text = element_text(size = 7),
-    strip.text = element_text(size = 8),
+    axis.title.y = element_text(size = 9),
+    axis.text = element_text(size = 8),
+    strip.text = element_text(size = 9),
     axis.ticks = element_line(colour = "black", size = 0.25),
     panel.grid.major = element_line(size = 0.15),
     panel.grid.minor = element_line(size = 0.1),
@@ -113,4 +114,4 @@ ggplot(df3) +
   )
 
 
-ggsave("figures/03_ensemble_intuition.pdf", width = 164, height = 55, unit = "mm", device = "pdf")
+ggsave("figures/Fig4.pdf", width = 190.5, height = 55, unit = "mm", device = "pdf")

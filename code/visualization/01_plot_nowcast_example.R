@@ -80,11 +80,11 @@ ggplot(df_truth) +
   scale_alpha_manual(name = "Nowcasts with \nprediction intervals:", values = ALPHAS) +
   theme(
     legend.position = "right",
-    legend.title = element_text(size = 8),
+    legend.title = element_text(size = 9),
     legend.text = element_text(size = 8),
     legend.key.size = unit(0.65, "lines"),
-    axis.title.y = element_text(size = 8),
-    axis.text = element_text(size = 7),
+    axis.title.y = element_text(size = 9),
+    axis.text = element_text(size = 8),
     axis.ticks = element_line(colour = "black", size = 0.25),
     panel.grid.major = element_line(size = 0.15),
     panel.grid.minor = element_line(size = 0.1),
@@ -95,4 +95,4 @@ ggplot(df_truth) +
   ) +
   expand_limits(x = as.Date("2022-06-10"), y = 12750)
 
-ggsave("figures/01_nowcast_example.pdf", width = 164, height = 55, unit = "mm", device = "pdf")
+ggsave("figures/Fig1.pdf", width = 190.5, height = 60, unit = "mm", device = "pdf")

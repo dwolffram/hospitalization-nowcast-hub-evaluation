@@ -16,12 +16,12 @@ p6 <- plot_scores("quantile", "age", by_horizon = TRUE)
 p6b <- plot_scores("quantile", "age", by_horizon = TRUE, relative = TRUE)
 
 t <- list(theme(
-  plot.title = element_text(size = 8, hjust = 0.5, margin = margin(10, 0, -3, 0), face = "bold"),
-  legend.title = element_text(size = 6),
-  legend.text = element_text(size = 5),
+  plot.title = element_text(size = 10, hjust = 0.5, margin = margin(10, 0, -3, 0), face = "bold"),
+  legend.title = element_text(size = 7),
+  legend.text = element_text(size = 6),
   legend.key.size = unit(0.4, "lines"),
-  axis.title = element_text(size = 7),
-  axis.text = element_text(size = 6),
+  axis.title = element_text(size = 8),
+  axis.text = element_text(size = 7),
   axis.ticks = element_line(colour = "black", size = 0.25),
   panel.grid.major = element_line(size = 0.15),
   panel.grid.minor = element_line(size = 0.1),
@@ -35,4 +35,4 @@ t <- list(theme(
   (p3 + p4 + labs(title = "States") + p4b) /
   (p5 + p6 + labs(title = "Age groups") + p6b) + plot_annotation(theme = theme(plot.margin = margin())) & t
 
-ggsave("figures/06_scores_wis.pdf", width = 164, height = 200, unit = "mm", device = "pdf")
+ggsave("figures/Fig7.pdf", width = 190.5, height = 220, unit = "mm", device = "pdf")

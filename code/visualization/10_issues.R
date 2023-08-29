@@ -1,7 +1,7 @@
 library(patchwork)
-source("code/visualization/09a_plot_saxony.R")
-source("code/visualization/09b_plot_bremen.R")
-source("code/visualization/09cd_plot_easter.R")
+source("code/visualization/10a_plot_saxony.R")
+source("code/visualization/10b_plot_bremen.R")
+source("code/visualization/10cd_plot_easter.R")
 
 
 (p1 + p2) /

@@ -43,4 +43,4 @@ ggplot(df_wday, aes(x = weekday, y = score, fill = model)) +
     legend.background = element_rect(fill = "transparent")
   )
 
-ggsave("figures/Fig_A8.pdf", width = 164, height = 60, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A08.pdf", width = 164, height = 60, unit = "mm", device = "pdf")

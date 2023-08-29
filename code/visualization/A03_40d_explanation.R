@@ -186,4 +186,4 @@ p3 <- ggplot(df_c, aes(x = date, y = truth, color = type)) +
 p3 / p1 / p2
 
 
-ggsave("figures/Fig_A3.pdf", width = 164, height = 140, unit = "mm", device = "pdf")
+ggsave("figures/Fig_A03.pdf", width = 164, height = 140, unit = "mm", device = "pdf")
